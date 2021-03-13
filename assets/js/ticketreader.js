@@ -129,6 +129,7 @@ function populateBoxes(stockInfo, tickerName)
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
 
 
+
     // if (stock is red) {
     //     tickerNameP.classList.remove("greenText");
     //     tickerNameP.classList.add("redText");
