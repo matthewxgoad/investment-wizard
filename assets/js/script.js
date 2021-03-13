@@ -1,5 +1,4 @@
 
-=======
 
 // GLOBAL VARIABLES //
 
