@@ -2,12 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Investment Wizard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    
+    <!-- HEADER -->
+    <section class="section has-background-primary">
+        <div class="container">
+          <h1 class="title has-text-white">
+            Investment Wizard
+          </h1>
+          <p class="subtitle has-text-white ">
+            At a glance information for your favorite stocks.
+          </p>
+        </div>
+      </section>
+    <!-- MAIN -->
+    <!-- ROOT TILE CONTAINER -->
+    <div class="tile is-ancestor m-3">
+    <!-- LEFT SIDEBAR -->
+    <div class="tile is-parent is-3">
+        <div class="tile is-child box has-background-warning-light">
+            <input type="text" placeholder="Stock Name" class="form-control search-input" id="search-input">
+            <button class="btn btn-outline-secondary input-group-append" type="button" id="search-btn"> > </button>
+            <button class="button is-size-4">GME</button>
+            <button class="button is-size-4">APL</button>
+            <button class="button is-size-4">ABC</button>
+        </div>
+    </div>
+        <!-- RIGHT SIDE CONTENT -->
+        <div class="tile is-vertical is-parent">
+            <!-- CURRENT STOCK INFO TILES -->
+            <div class="tile is-parent">
+                <div class="tile is-child box has-text-centered">
+                    <p class="title">GME</p>
+                    <p class="subtitle">Gamestop</p>
+                </div>
+                <div class="tile is-child box has-text-centered">
+                    <p class="title">+2.7&percnt;</p>
+                    <p class="subtitle">Percent Change</p>
+                </div>
+                <div class="tile is-child box has-text-centered">
+                    <p class="title">+&dollar;20.21</p>
+                    <p class="subtitle">Amount Change</p>
+                </div>
+            </div>
+            <!-- NEWS ITEMS, SPANNING RIGHT SIDE -->
+            <div class="tile is-child box">
+                <p class="title">News Item</p>
+                <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+            </div>
+            <div class="tile is-child box">
+                <p class="title">News Item</p>
+                <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+            </div>
+            <div class="tile is-child box">
+                <p class="title">News Item</p>
+                <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+            </div>
 
+        </div>
+
+    </div>
 
     <script src="assets/js/script.js"></script>
 </body>
