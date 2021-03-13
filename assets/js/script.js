@@ -6,11 +6,11 @@ let sidebarEl = document.getElementById('sidebarEL');
 
 // FUNCTIONS //
 
-localStorage.setItem('1', 'B');
-localStorage.setItem('2', 'B');
-localStorage.setItem('3', 'B');
-localStorage.setItem('4', 'B');
-localStorage.setItem('5', 'B');
+// localStorage.setItem('1', 'B');
+// localStorage.setItem('2', 'B');
+// localStorage.setItem('3', 'B');
+// localStorage.setItem('4', 'B');
+// localStorage.setItem('5', 'B');
 
 // Retreive STOCK SYMBOLS from localStorage and insert into document
 function createSideStockBtns() {

@@ -89,9 +89,9 @@ function populateBoxes(tickerName, companyName, percentChange, dollarChange) {
 
    
 
-    tickerDiv.classList.add("tile is-child box has-text-centered");
-    percentChangeDiv.classList.add("tile is-child box has-text-centered");
-    valueChangeDiv.classList.add("tile is-child box has-text-centered");
+    tickerDiv.setAttribute('class', "tile is-child box has-text-centered");
+    percentChangeDiv.setAttribute('class', "tile is-child box has-text-centered");
+    valueChangeDiv.setAttribute('class', "tile is-child box has-text-centered");
 
 
     // if (stock is red) {
