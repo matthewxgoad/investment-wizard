@@ -9,8 +9,8 @@
 </head>
 <body>
     <!-- HEADER -->
-    <section class="section has-background-primary">
-        <div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body pl-6">
           <h1 class="title has-text-white">
             Investment Wizard
           </h1>
@@ -25,8 +25,23 @@
     <!-- LEFT SIDEBAR -->
     <div class="tile is-parent is-3">
         <div class="tile is-child box has-background-warning-light">
-            <input type="text" placeholder="Stock Name" class="form-control search-input" id="search-input">
-            <button class="btn btn-outline-secondary input-group-append" type="button" id="search-btn"> > </button>
+            <!-- SEARCH FIELD AND BUTTON -->
+            <div class="field has-addons">
+                <div class="control">
+                  <input class="input" type="text" placeholder="Stock Name" id="search-input">
+                </div>
+                <div class="control" id="search-btn">
+                  <a class="button is-info">
+                    Search
+                  </a>
+                </div>
+              </div>
+
+
+            <!-- OLD SEARCH BAR CODE / DELETE BEFORE DEPLOY -->
+            <!-- <input type="text" placeholder="Stock Name" class="form-control search-input" id="search-input">
+            <button class="btn btn-outline-secondary input-group-append" type="button" id="search-btn"> > </button> -->
+
             <!-- PLACEHOLDER BUTTONS -->
             <!-- <button class="button is-size-4">GME</button>
             <button class="button is-size-4">APL</button>
