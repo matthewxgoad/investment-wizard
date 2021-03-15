@@ -10,8 +10,19 @@
 
 //global Variables
 // var url = 
+// var url = "https://newsapi.org/v2/everything?q=GME&apiKey=d95e7ff978a645b9b75fde1f0d7f51b3"
+function getNews() {
+    var url = "https://newsapi.org/v2/everything?q=GME&apiKey=d95e7ff978a645b9b75fde1f0d7f51b3"
+    fetch(url)
+      .then(response => response.json())
+      .then(function (data) {
+        console.log(data);
+      })
+      .catch(function () {
+      });
+  }
 
-
+getNews();
 
 //functions
 // const searchButton is already definied in ticketreader.js
@@ -19,6 +30,14 @@
 // searchButton.addEventListener('click', buttonSubmit)
 //
 // function buttonSubmit() is already definied in ticketreader.js
+// function buttonSubmit() {
+//     let searchInput = document.getElementById('search-input')
+//     let userInput = searchInput.value
+//     userInput = userInput.toUpperCase().trim()
+//     fetchStockPrice(userInput)
+// }
+// const searchButton = document.getElementById('search-btn')
+// searchButton.addEventListener('click', buttonSubmit)
 // function buttonSubmit() {
 //     let searchInput = document.getElementById('search-input')
 //     let userInput = searchInput.value
