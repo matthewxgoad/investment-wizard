@@ -32,12 +32,14 @@ function buttonSubmit() {
 }
 
 function getNews(userInput) {
+   // clear current News List
+   $("#stock-news-items").empty();
     var url = "https://finnhub.io/api/v1/company-news?symbol="+userInput+"&from=2021-03-01&to=2021-03-09&token=c17r4k748v6sj55b4ltg"
     fetch(url)
       .then(response => response.json())
       .then(function (data) {
         console.log(data);
-        for(i=0; i<6; i++) {
+        for(i=0; i<4; i++) {
         var headline = data[i].headline;
         var date = dayjs.unix(data[i].datetime).format('MMMM M YYYY')
         var image = data[i].image;
@@ -49,7 +51,7 @@ function getNews(userInput) {
 
         var newsCard = document.createElement("div");
         // headlineE.textContent = headline;
-        newsCard.setAttribute("class","tile is-child box has-text-centered");
+        newsCard.setAttribute("class","tile is-child box has-text-centered is-3");
         newsCard.setAttribute("id", "newsStory"+i);
         var parent = document.getElementById("stock-news-items");
         parent.appendChild(newsCard);
@@ -57,7 +59,7 @@ function getNews(userInput) {
 
         var headlineE = document.createElement("p");
         headlineE.textContent = headline;
-        headlineE.setAttribute("class","title");
+        headlineE.setAttribute("class","title is-5");
         var newsParent = document.getElementById("newsStory"+i)
         newsParent.appendChild(headlineE);
 
@@ -76,6 +78,7 @@ function getNews(userInput) {
 
         var summaryE = document.createElement("p");
         summaryE.textContent = summary;
+        summaryE.setAttribute("class","content is-small");
         newsParent.appendChild(summaryE);
 
         var newsurlE = document.createElement("a");
