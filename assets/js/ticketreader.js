@@ -19,9 +19,8 @@ function buttonSubmit() {
     // else if (userInput != listofAllTickers)
     //alert error
     // else {}
-    localStorage.setItem('ticker', userInput)
-
-    fetchStockPrice(userInput)
+    storeSymbolLocal(userInput); // Stores user input to localStorage
+    fetchStockPrice(userInput);
 
 }
 
@@ -32,11 +31,11 @@ function buttonSubmit() {
 function fetchStockPrice(tickerName) {
 
     // callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + tickerName + '&interval=5min&outputsize=compact&apikey=S5E23FUR0IXVEJ9R'
-
+    removeButtons();
+    getStoredSymbols();
     callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
-
     //this function contains a second fetch within a function which is nested underneath the primary fetch
-
+    
     function getCompanyName(tickerName) {
         fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+tickerName+'&apikey=S5E23FUR0IXVEJ9R')
         .then(response => response.json())
@@ -55,14 +54,12 @@ function fetchStockPrice(tickerName) {
         .then(data => {
             console.log(data)
             let stockInfo = data['Global Quote']
-            
             //calling the above function with an additional fetch to a different API to get company name
             getCompanyName(tickerName)
             //then passes the "tickerName" to the populateBoxes function
             populateBoxes(stockInfo, tickerName)
             
         })
-
         .catch(error => {
             console.log('Error:', error);
         });
