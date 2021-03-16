@@ -22,6 +22,7 @@ function buttonSubmit() {
     //alert error
     // else {}
     storeSymbolLocal(userInput); // Stores user input to localStorage
+    //
     fetchStockPrice(userInput);
 
 }
@@ -40,13 +41,12 @@ function fetchStockPrice(tickerName) {
         .then(response => response.json())
         //this fetch gets the price action
         .then(data => {
-       
+    
             let stockInfo = data['Global Quote']
 
             //calling the below function with an additional fetch to a different API to get company name
             getCompanyName(stockInfo)
 
-            //then passes the "tickerName" to the populateBoxes function
         })
         .catch(error => {
             console.log('Error:', error);
