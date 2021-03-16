@@ -6,3 +6,7 @@
 .redText {
     color: red;
 }
+
+.tile {
+    margin: 20px;
+}
