@@ -2,8 +2,12 @@
 let callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=S5E23FUR0IXVEJ9R'
 
 const searchButton = document.getElementById('search-btn')
+const searchInput = document.getElementById('search-input')
 
-
+searchInput.addEventListener("keypress", function(e) {
+    if(e.key === 'Enter') 
+    buttonSubmit(); 
+});
 searchButton.addEventListener('click', buttonSubmit)
 
 //
@@ -22,7 +26,6 @@ function buttonSubmit() {
 
 }
 
-//this function makes two API calls
 //the first call is to get the stock price changes
 //the second call is to get the name of the company only
 
