@@ -37,15 +37,15 @@ function fetchStockPrice(tickerName) {
     callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
 
 
-    function getCompanyName(tickerName) {
-        fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+tickerName+'&apikey=S5E23FUR0IXVEJ9R')
-        .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                let tickerName = data['Name']
-                return tickerName
-            }
-            )}
+    // function getCompanyName(tickerName) {
+    //     fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+tickerName+'&apikey=S5E23FUR0IXVEJ9R')
+    //     .then(response => response.json())
+    //         .then(data => {
+    //             console.log(data)
+    //             let tickerName = data['Name']
+    //             return tickerName
+    //         }
+    //         )}
 
 
     fetch(callURL)
