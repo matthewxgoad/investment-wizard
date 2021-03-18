@@ -69,10 +69,10 @@ function getCompanyName(stockInfo) {
                 populateBoxes(stockInfo, tickerNameData)
             }
         })
-        
-        .catch (error => {
-        console.log('Error:', error);
-    });
+
+        .catch(error => {
+            console.log('Error:', error);
+        });
 }
 
 function populateBoxes(stockInfo, tickerNameData) {
@@ -98,10 +98,10 @@ function populateBoxes(stockInfo, tickerNameData) {
     amountChangeP.classList.add("subtitle");
     percentP.classList.add("title");
     percentChangeP.classList.add("subtitle");
-    
+
     currentStockPriceTitle.classList.add("subtitle");
     currentStockPriceAPI.classList.add("title");
-    
+
     tickerNameP.classList.add("title");
     companyNameP.classList.add("subtitle");
     dollarP.classList.add("title");
@@ -122,7 +122,6 @@ function populateBoxes(stockInfo, tickerNameData) {
     let companyName = tickerNameData["Name"]
     let currentPrice = stockInfo["05. price"]
 
-
     //THIRD attempt ot round numbers
     //Since the JSON API returns an Array, I removed the final two elements from the string so that it appears to round to the second decimal and cleans up the page significantly
     dollarChange = dollarChange.substring(0, dollarChange.length - 2);
@@ -137,12 +136,12 @@ function populateBoxes(stockInfo, tickerNameData) {
     percentP.innerHTML = (percentChange + '&percnt;')
     percentChangeP.innerHTML = ("Percent Change");
     currentStockPriceTitle.innerHTML = ("Current Price");
-    currentStockPriceAPI.innerHTML = ('&dollar;'+currentPrice);
+    currentStockPriceAPI.innerHTML = ('&dollar;' + currentPrice);
 
 
-    tickerDiv.classList.add("tile", "is-child", "box","has-text-centered");
-    currentStockPriceDiv.classList.add("tile", "is-child", "box","has-text-centered");
-    
+    tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
+    currentStockPriceDiv.classList.add("tile", "is-child", "box", "has-text-centered");
+
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
 
@@ -168,7 +167,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     tickerDiv.append(companyNameP);
     currentStockPriceDiv.append(currentStockPriceAPI)
     currentStockPriceDiv.append(currentStockPriceTitle)
-    
+
     percentChangeDiv.append(dollarP);
     percentChangeDiv.append(amountChangeP);
     valueChangeDiv.append(percentP);
@@ -183,30 +182,35 @@ function populateBoxes(stockInfo, tickerNameData) {
     console.log(stockInfo)
     console.log(tickerNameData)
 
-    createChart(ticker)
+    dailyInfo(ticker)
 }
 
 // The following code is all related to chart.js
 
-function createChart(ticker) {
+function dailyInfo(ticker) {
 
-    let myChart = document.getElementById("myChart").getContext('2d');
-    let hour = dayjs().format('H')
+
 
     fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S5E23FUR0IXVEJ9R')
         .then(response => response.json())
-        .then(data => {
-            return data
+        .then(dailyPrice => {
+
+
+            console.log(dailyPrice)
+
+            createGraph(dailyPrice)
         }
         )
         .catch(error => {
             console.log('Error:', error);
         });
+}
 
-
+function createGraph() {
+    
+    let myChart = document.getElementById("myChart").getContext('2d');
+    let hour = dayjs().format('H')
     console.log(hour)
-    console.log(data)
-
     let stockPricingChart = new Chart(myChart, {
         type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
         data: {
