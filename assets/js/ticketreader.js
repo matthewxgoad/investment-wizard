@@ -207,32 +207,32 @@ function dailyInfo(ticker) {
 }
 
 function createGraph(dailyPrice) {
-    //what time is it
-    //if its TIME then show -> this data
-    //if CURRENTTIME == Last Refreshed: "2021-03-16 20:00:00"
-    //if currenttime != beyond this time
+
     let myChart = document.getElementById("myChart").getContext('2d');
     // let hour = dayjs().format('H')
 
     let yesterdaysDate = dayjs().subtract(1, 'day').format("YYYY-MM-DD")
 
-    let hour1 = yesterdaysDate+" 05:00:00"
-    let hour2 = yesterdaysDate+" 06:00:00"
-    let hour3 = yesterdaysDate+" 07:00:00"
-    let hour4 = yesterdaysDate+" 08:00:00"
-    let hour5 = yesterdaysDate+" 09:00:00"
-    let hour6 = yesterdaysDate+" 10:00:00"
-    let hour7 = yesterdaysDate+" 11:00:00"
-    let hour8 = yesterdaysDate+" 12:00:00"
-    let hour9= yesterdaysDate+" 13:00:00"
-    let hour10 = yesterdaysDate+" 14:00:00"
-    let hour11= yesterdaysDate+" 15:00:00"
-    let hour12 = yesterdaysDate+" 16:00:00"
-    let hour13 = yesterdaysDate+" 17:00:00"
-    let hour14 = yesterdaysDate+" 18:00:00"
-    let hour15 = yesterdaysDate+" 19:00:00"
-    let hour16 = yesterdaysDate+" 20:00:00"
+    //setting the hour to call the API per hour
+    let hour1 = yesterdaysDate + " 05:00:00"
+    let hour2 = yesterdaysDate + " 06:00:00"
+    let hour3 = yesterdaysDate + " 07:00:00"
+    let hour4 = yesterdaysDate + " 08:00:00"
+    let hour5 = yesterdaysDate + " 09:00:00"
+    let hour6 = yesterdaysDate + " 10:00:00"
+    let hour7 = yesterdaysDate + " 11:00:00"
+    let hour8 = yesterdaysDate + " 12:00:00"
+    let hour9 = yesterdaysDate + " 13:00:00"
+    let hour10 = yesterdaysDate + " 14:00:00"
+    let hour11 = yesterdaysDate + " 15:00:00"
+    let hour12 = yesterdaysDate + " 16:00:00"
+    let hour13 = yesterdaysDate + " 17:00:00"
+    let hour14 = yesterdaysDate + " 18:00:00"
+    let hour15 = yesterdaysDate + " 19:00:00"
+    let hour16 = yesterdaysDate + " 20:00:00"
 
+    //the actual format for API call to store the time
+    //after each variable, I round the number to two decimals by eliminating the 3rd and 4th decimal
     let sixAM = dailyPrice["Time Series (60min)"][hour1]["4. close"]
     sixAM = sixAM.substring(0, sixAM.length - 2);
     let sevenAM = dailyPrice["Time Series (60min)"][hour2]["4. close"]
@@ -267,40 +267,43 @@ function createGraph(dailyPrice) {
     ninePM = ninePM.substring(0, ninePM.length - 2);
 
 
-    console.log("last refreshed >>>>>>>>>"+dailyPrice["Meta Data"]["3. Last Refreshed"])
+    console.log("last refreshed >>>>>>>>>" + dailyPrice["Meta Data"]["3. Last Refreshed"])
 
     let stockPricingChart = new Chart(myChart, {
         type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
         data: {
-            labels: ['5am','6am','7am','8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','8pm'],
+            labels: ['5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
             datasets: [
                 {
                     label: 'Price',
-                    data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM,fourPM,fivePM,sixPM,sevenPM,eightPM,ninePM],
+                    data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM, sixPM, sevenPM, eightPM, ninePM],
                     // backgroundColor: 'blue'
                     backgroundColor: [
                         'rgba(46, 204, 113, 0.5)'
                     ]
                 }
-            ],
-            options: {
-                title: {
-                    display: true,
-                    text: "Yesterday's Price Movement"
-                    // fontSize: 25;
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: "Yesterday's Price Movement"
+                // fontSize: 25;
 
-                },
-                legend: {
-                    position: 'right'
-                }
             },
-
+            legend: {
+                display: false,
+                position: 'bottom'
+            },
+            drawOnChartArea: false,
         }
-
-
     })
 
 
+
+
+    //close function
 }
 
 
