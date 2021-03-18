@@ -55,7 +55,7 @@ function removeButtons() {
 }
 var myStockInfo = ["AMC", "IBM", "GME"];
 
-$("#search-input").autocomplete(
+$("#search-inpuxt").autocomplete(
     {
     source: myStockInfo
     },
@@ -69,3 +69,41 @@ $("#search-input").autocomplete(
 document.onload = getStoredSymbols();
 document.getElementById('clearHistoryBtn').addEventListener("click", clearLocalStorage);
 
+$( function() {
+    var projects = [
+      {
+        value: "BA",
+        label: "Boeing Company",
+      },
+      {
+        value: "BAA",
+        label: "Banro Corporation USA",
+      },
+      {
+        value: "BAB",
+        label: "Invesco Taxable Municipal Bond ETF",
+      }
+    ];
+ 
+    $( "#search-input" ).autocomplete({
+      minLength: 0,
+      source: projects,
+      focus: function( event, ui ) {
+        $( "#search-input" ).val( ui.item.label );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( "#search-input" ).val( ui.item.label );
+        $( "#search-input-id" ).val( ui.item.value );
+        // $( "#project-description" ).html( ui.item.desc );
+        // $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+ 
+        return true;
+      }
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<div>" + item.value + "<br>" + item.label + "</div>" )
+        .appendTo( ul );
+    };
+  } );
