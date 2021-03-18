@@ -109,11 +109,13 @@ function populateBoxes(stockInfo, tickerNameData) {
     percentP.classList.add("title");
     percentChangeP.classList.add("subtitle");
 
+    //All the data from the API is styled green UNLESS its negative for the day
     tickerNameP.classList.add("greenText");
     percentP.classList.add("greenText");
     dollarP.classList.add("greenText");
     currentStockPriceAPI.classList.add("greenText");
 
+    //get all the info necessary from the API
     let ticker = stockInfo["01. symbol"]
     let dollarChange = stockInfo["09. change"]
     let percentChange = stockInfo["10. change percent"]
@@ -121,29 +123,18 @@ function populateBoxes(stockInfo, tickerNameData) {
     let currentPrice = stockInfo["05. price"]
 
 
-    //FIRST attempt to round numbers to two decimal places
-        //returns ###.00 instead of the actual number
-    // dollarChange = parseInt(dollarChange).toFixed(2);
-    // percentChange = parseInt(percentChange).toFixed(2);
-    // currentPrice = parseInt(currentPrice).toFixed(2);
+    //THIRD attempt ot round numbers
+    //Since the JSON API returns an Array, I removed the final two elements from the string so that it appears to round to the second decimal and cleans up the page significantly
+    dollarChange = dollarChange.substring(0, dollarChange.length - 2);
+    percentChange = percentChange.substring(0, percentChange.length - 3);
+    currentPrice = currentPrice.substring(0, currentPrice.length - 2);
 
-
-    
-    //SECOND attempt to round numbers to two decimal places
-        //returns the correct number with NO decimals
-    // dollarChange = parseInt(dollarChange)
-    // percentChange = parseInt(percentChange)
-    // currentPrice = parseInt(currentPrice)
- 
-    // dollarChange = Math.round((dollarChange + Number.EPSILON) * 100) / 100
-    // percentChange = Math.round((percentChange + Number.EPSILON) * 100) / 100
-    // currentPrice = Math.round((currentPrice + Number.EPSILON) * 100) / 100
-
+    //add all the text to every element
     tickerNameP.innerHTML = (ticker);
     companyNameP.innerHTML = (companyName);
     dollarP.innerHTML = ('&dollar;' + dollarChange)
     amountChangeP.innerHTML = ("Dollar Change")
-    percentP.innerHTML = (percentChange)
+    percentP.innerHTML = (percentChange + '&percnt;')
     percentChangeP.innerHTML = ("Percent Change");
     currentStockPriceTitle.innerHTML = ("Current Price");
     currentStockPriceAPI.innerHTML = ('&dollar;'+currentPrice);
@@ -155,8 +146,8 @@ function populateBoxes(stockInfo, tickerNameData) {
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
 
-    // dollarChange = dollarChange.toString()
 
+    //if the first index of the string is negative, it this if statement changes all the classes from Green to Red, showing that its negative for the day 
     if (dollarChange.charAt(0) == "-") {
         tickerNameP.classList.remove('greenText')
         tickerNameP.classList.add('redText')
@@ -169,8 +160,10 @@ function populateBoxes(stockInfo, tickerNameData) {
 
     }
 
+    //this removes the current cards (if any) from the parent dive
     stockInfoItems.innerHTML = "";
 
+    //this builds the P elements to their respective divs
     tickerDiv.append(tickerNameP);
     tickerDiv.append(companyNameP);
     currentStockPriceDiv.append(currentStockPriceAPI)
@@ -181,6 +174,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     valueChangeDiv.append(percentP);
     valueChangeDiv.append(percentChangeP);
 
+    //this build the divs in the parent element
     stockInfoItems.append(tickerDiv)
     stockInfoItems.append(currentStockPriceDiv)
     stockInfoItems.append(percentChangeDiv)
