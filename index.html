@@ -6,6 +6,7 @@
     <title>Investment Wizard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 </head>
 <body>
     <!-- HEADER -->
@@ -42,7 +43,7 @@
             <!-- BUTTONS DRAW HERE -->
             <div class="container" id="buttonListEl">
               <!-- <button class="button is-size-4">GME</button>
-              <button class="button is-size-4">APL</button>
+              <button class="button is-size-4">APPL</button>
               <button class="button is-size-4">DEF</button> -->
             </div>
             
@@ -54,6 +55,11 @@
             <div class="tile is-parent" id="stock-info-items">
                 <!-- PLACEHOLDER STOCK INFO TILES DRAW HERE-->
             </div>
+            <!-- chart.js -->
+            <div class="container">
+              <canvas id="myChart"></canvas>
+            </div>
+
             <!-- NEWS ITEMS, SPANNING RIGHT SIDE -->
             <div class="tile is-ancestor" id="stock-news-items">
                 <!-- PLACEHOLDER NEWS ITEMS DRAW HERE -->
@@ -65,10 +71,12 @@
         </div>
 
     </div>
+  
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/ticketreader.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script src="assets/js/newsreader.js"></script>
 
 
