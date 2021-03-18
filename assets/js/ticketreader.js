@@ -22,16 +22,16 @@ function buttonSubmit() {
     //alert error
     // else {}
     storeSymbolLocal(userInput); // Stores user input to localStorage
+    //
     fetchStockPrice(userInput);
 
 }
 
 //the first call is to get the stock price changes
-//the second call is to get the name of the company only
+//the second call is to get the name of the company
 
 function fetchStockPrice(tickerName) {
 
-    // callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + tickerName + '&interval=5min&outputsize=compact&apikey=S5E23FUR0IXVEJ9R'
     removeButtons();
     getStoredSymbols();
     callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
@@ -41,13 +41,11 @@ function fetchStockPrice(tickerName) {
         .then(response => response.json())
         //this fetch gets the price action
         .then(data => {
-
             let stockInfo = data['Global Quote']
 
             //calling the below function with an additional fetch to a different API to get company name
             getCompanyName(stockInfo)
 
-            //then passes the "tickerName" to the populateBoxes function
         })
         .catch(error => {
             console.log('Error:', error);
@@ -83,6 +81,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     const tickerDiv = document.createElement("div")
     const percentChangeDiv = document.createElement("div")
     const valueChangeDiv = document.createElement("div")
+    const currentStockPriceDiv = document.createElement("div")
 
     const tickerNameP = document.createElement("p")
     const companyNameP = document.createElement("p")
@@ -90,6 +89,8 @@ function populateBoxes(stockInfo, tickerNameData) {
     const amountChangeP = document.createElement("p")
     const percentP = document.createElement("p")
     const percentChangeP = document.createElement("p")
+    const currentStockPriceTitle = document.createElement("p")
+    const currentStockPriceAPI = document.createElement("p")
 
     tickerNameP.classList.add("title");
     companyNameP.classList.add("subtitle");
@@ -97,7 +98,10 @@ function populateBoxes(stockInfo, tickerNameData) {
     amountChangeP.classList.add("subtitle");
     percentP.classList.add("title");
     percentChangeP.classList.add("subtitle");
-
+    
+    currentStockPriceTitle.classList.add("subtitle");
+    currentStockPriceAPI.classList.add("title");
+    
     tickerNameP.classList.add("title");
     companyNameP.classList.add("subtitle");
     dollarP.classList.add("title");
@@ -108,11 +112,32 @@ function populateBoxes(stockInfo, tickerNameData) {
     tickerNameP.classList.add("greenText");
     percentP.classList.add("greenText");
     dollarP.classList.add("greenText");
+    currentStockPriceAPI.classList.add("greenText");
 
     let ticker = stockInfo["01. symbol"]
     let dollarChange = stockInfo["09. change"]
     let percentChange = stockInfo["10. change percent"]
     let companyName = tickerNameData["Name"]
+    let currentPrice = stockInfo["05. price"]
+
+
+    //FIRST attempt to round numbers to two decimal places
+        //returns ###.00 instead of the actual number
+    // dollarChange = parseInt(dollarChange).toFixed(2);
+    // percentChange = parseInt(percentChange).toFixed(2);
+    // currentPrice = parseInt(currentPrice).toFixed(2);
+
+
+    
+    //SECOND attempt to round numbers to two decimal places
+        //returns the correct number with NO decimals
+    // dollarChange = parseInt(dollarChange)
+    // percentChange = parseInt(percentChange)
+    // currentPrice = parseInt(currentPrice)
+ 
+    // dollarChange = Math.round((dollarChange + Number.EPSILON) * 100) / 100
+    // percentChange = Math.round((percentChange + Number.EPSILON) * 100) / 100
+    // currentPrice = Math.round((currentPrice + Number.EPSILON) * 100) / 100
 
     tickerNameP.innerHTML = (ticker);
     companyNameP.innerHTML = (companyName);
@@ -120,32 +145,44 @@ function populateBoxes(stockInfo, tickerNameData) {
     amountChangeP.innerHTML = ("Dollar Change")
     percentP.innerHTML = (percentChange)
     percentChangeP.innerHTML = ("Percent Change");
+    currentStockPriceTitle.innerHTML = ("Current Price");
+    currentStockPriceAPI.innerHTML = ('&dollar;'+currentPrice);
 
-    tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
+
+    tickerDiv.classList.add("tile", "is-child", "box","has-text-centered");
+    currentStockPriceDiv.classList.add("tile", "is-child", "box","has-text-centered");
+    
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
 
-    if (dollarChange != null) {
-        if (dollarChange.charAt(0) == "-") {
-            tickerNameP.classList.remove('greenText')
-            tickerNameP.classList.add('redText')
-            dollarP.classList.remove('greenText')
-            dollarP.classList.add('redText')
-            percentP.classList.remove('greenText')
-            percentP.classList.add('redText')
-        }
+    // dollarChange = dollarChange.toString()
+
+    if (dollarChange.charAt(0) == "-") {
+        tickerNameP.classList.remove('greenText')
+        tickerNameP.classList.add('redText')
+        dollarP.classList.remove('greenText')
+        dollarP.classList.add('redText')
+        percentP.classList.remove('greenText')
+        percentP.classList.add('redText')
+        currentStockPriceAPI.classList.remove('greenText')
+        currentStockPriceAPI.classList.add('redText')
+
     }
 
     stockInfoItems.innerHTML = "";
 
     tickerDiv.append(tickerNameP);
     tickerDiv.append(companyNameP);
+    currentStockPriceDiv.append(currentStockPriceAPI)
+    currentStockPriceDiv.append(currentStockPriceTitle)
+    
     percentChangeDiv.append(dollarP);
     percentChangeDiv.append(amountChangeP);
     valueChangeDiv.append(percentP);
     valueChangeDiv.append(percentChangeP);
 
     stockInfoItems.append(tickerDiv)
+    stockInfoItems.append(currentStockPriceDiv)
     stockInfoItems.append(percentChangeDiv)
     stockInfoItems.append(valueChangeDiv)
 
