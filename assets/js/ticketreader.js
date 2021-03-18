@@ -4,9 +4,9 @@ let callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&s
 const searchButton = document.getElementById('search-btn')
 const searchInput = document.getElementById('search-input')
 
-searchInput.addEventListener("keypress", function(e) {
-    if(e.key === 'Enter') 
-    buttonSubmit(); 
+searchInput.addEventListener("keypress", function (e) {
+    if (e.key === 'Enter')
+        buttonSubmit();
 });
 searchButton.addEventListener('click', buttonSubmit)
 
@@ -36,24 +36,12 @@ function fetchStockPrice(tickerName) {
     getStoredSymbols();
     callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
 
-
-    // function getCompanyName(tickerName) {
-    //     fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol='+tickerName+'&apikey=S5E23FUR0IXVEJ9R')
-    //     .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data)
-    //             let tickerName = data['Name']
-    //             return tickerName
-    //         }
-    //         )}
-
-
     fetch(callURL)
         //this is the original fetch
         .then(response => response.json())
         //this fetch gets the price action
         .then(data => {
-       
+
             let stockInfo = data['Global Quote']
 
             //calling the below function with an additional fetch to a different API to get company name
@@ -68,23 +56,26 @@ function fetchStockPrice(tickerName) {
 }
 
 
-    //this function contains a second fetch within a function which is nested underneath the primary fetch
+//this function contains a second fetch within a function which is nested underneath the primary fetch
 
-    function getCompanyName(stockInfo) {
-        let ticker = stockInfo['01. symbol']
-        fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=S5E23FUR0IXVEJ9R')
-            .then(response => response.json())
-            .then(tickerNameData => {
-                console.log(tickerNameData)
-                // let tickerNameData = data
-                
+function getCompanyName(stockInfo) {
+    let ticker = stockInfo['01. symbol']
+    fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=S5E23FUR0IXVEJ9R')
+        .then(response => response.json())
+        .then(tickerNameData => {
+
+            // let tickerNameData = data
+            if (tickerNameData == "") {
+                alert("Couldn't find that stock, please try again!")
+            } else {
                 populateBoxes(stockInfo, tickerNameData)
             }
-            )
-            .catch(error => {
-                console.log('Error:', error);
-            });
-    }
+        })
+        
+        .catch (error => {
+        console.log('Error:', error);
+    });
+}
 
 function populateBoxes(stockInfo, tickerNameData) {
 
@@ -130,17 +121,19 @@ function populateBoxes(stockInfo, tickerNameData) {
     percentP.innerHTML = (percentChange)
     percentChangeP.innerHTML = ("Percent Change");
 
-    tickerDiv.classList.add("tile", "is-child", "box","has-text-centered");
+    tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
 
-    if (dollarChange.charAt(0) == "-") {
-        tickerNameP.classList.remove('greenText')
-        tickerNameP.classList.add('redText')
-        dollarP.classList.remove('greenText')
-        dollarP.classList.add('redText')
-        percentP.classList.remove('greenText')
-        percentP.classList.add('redText')
+    if (dollarChange != null) {
+        if (dollarChange.charAt(0) == "-") {
+            tickerNameP.classList.remove('greenText')
+            tickerNameP.classList.add('redText')
+            dollarP.classList.remove('greenText')
+            dollarP.classList.add('redText')
+            percentP.classList.remove('greenText')
+            percentP.classList.add('redText')
+        }
     }
 
     stockInfoItems.innerHTML = "";
@@ -156,7 +149,67 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.append(percentChangeDiv)
     stockInfoItems.append(valueChangeDiv)
 
+    console.log(stockInfo)
+    console.log(tickerNameData)
+
+    createChart(ticker)
 }
+
+// The following code is all related to chart.js
+
+function createChart(ticker) {
+
+    let myChart = document.getElementById("myChart").getContext('2d');
+    let hour = dayjs().format('H')
+
+    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S5E23FUR0IXVEJ9R')
+        .then(response => response.json())
+        .then(data => {
+            return data
+        }
+        )
+        .catch(error => {
+            console.log('Error:', error);
+        });
+
+
+    console.log(hour)
+    console.log(data)
+
+    let stockPricingChart = new Chart(myChart, {
+        type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm'],
+            datasets: [
+                {
+                    label: 'Price',
+                    data: [200, 300, 400, 500, 600, 700, 800, 50, 900],
+                    // backgroundColor: 'blue'
+                    backgroundColor: [
+                        'rgba(46, 204, 113, 0.5)'
+                    ]
+                }
+            ],
+            options: {
+                title: {
+                    display: true,
+                    text: 'Todays Price Movement'
+                    // fontSize: 25;
+
+                },
+                legend: {
+                    position: 'right'
+                }
+            },
+
+        }
+
+
+    })
+
+
+}
+
 
 // Add div elements with the following classes
 // tile is-child box has-text-centered
@@ -164,3 +217,4 @@ function populateBoxes(stockInfo, tickerNameData) {
 
 // text input from search box is #search-input
 // search button is #search-btn
+
