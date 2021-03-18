@@ -53,6 +53,17 @@ function removeButtons() {
         buttonListEl.removeChild(buttonListEl.firstChild);
     }
 }
+var myStockInfo = ["AMC", "IBM", "GME"];
+
+$("#search-input").autocomplete(
+    {
+    source: myStockInfo
+    },
+    {
+    autofocus: true,
+    delay: 300,
+    minLength: 2,
+    });
 
 // EVENT LISTENERS //
 document.onload = getStoredSymbols();
