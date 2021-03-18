@@ -1,34 +1,15 @@
-// text input from search box is #search-input
 
-// search button is #search-btn
-
-// right side container has id #right-side
-
-// create new div elements with the following classes
-// tile is-child box
-// add them to the div with id #stock-news-items
-
-//global Variables
-// var url = 
-// var url = "https://newsapi.org/v2/everything?q=GME&apiKey=d95e7ff978a645b9b75fde1f0d7f51b3"
+// GLOBAL VARIABLES
 
 searchButton.addEventListener('click', buttonSubmit)
 
 function buttonSubmit() {
-  let searchInput = document.getElementById('search-input')
-  let userInput = searchInput.value
-
-  userInput = userInput.toUpperCase().trim()
-
-  // if(userInput.length < 3 || userInput.length > 4)
-  // alert error
-  // else if (userInput != listofAllTickers)
-  //alert error
-  // else {}
-  // localStorage.setItem('ticker', userInput)
-
-  getNews(userInput)
-
+  let searchInput = document.getElementById('search-input');
+  let userInput = searchInput.value;
+  userInput = userInput.toUpperCase().trim();
+  storeSymbolLocal(userInput); //
+  fetchStockPrice(userInput); //
+  getNews(userInput);
 }
 
 function getNews(userInput) {
@@ -47,42 +28,34 @@ function getNews(userInput) {
         var summary = data[i].summary;
         var newsurl = data[i].url;
 
-        console.log(headline+" "+date+" "+image+" "+source+" "+summary+" "+newsurl);
-
         var newsCard = document.createElement("div");
-        // headlineE.textContent = headline;
-        newsCard.setAttribute("class","tile is-child box has-text-centered is-3");
+        newsCard.setAttribute("class","tile is-child box is-12");
         newsCard.setAttribute("id", "newsStory"+i);
         var parent = document.getElementById("stock-news-items");
         parent.appendChild(newsCard);
-        console.log(newsCard+ " " +i)
 
+        var dateE = document.createElement("p");
+        dateE.innerHTML = "<em>" + date + "</em>";
+        var newsParent = document.getElementById("newsStory"+i)
+        newsParent.appendChild(dateE);
+        
         var headlineE = document.createElement("p");
         headlineE.textContent = headline;
-        headlineE.setAttribute("class","title is-5");
-        var newsParent = document.getElementById("newsStory"+i)
+        headlineE.setAttribute("class", "title is-4");
         newsParent.appendChild(headlineE);
 
         var imageE = document.createElement("img");
         imageE.setAttribute("src", image);
-        imageE.setAttribute("width", "100px");
+        // imageE.setAttribute("width", "100px");  // REMOVE?
         newsParent.appendChild(imageE);
-
-        var sourceE = document.createElement("p");
-        sourceE.textContent = source;
-        newsParent.appendChild(sourceE);
-
-        var dateE = document.createElement("p");
-        dateE.textContent = date;
-        newsParent.appendChild(dateE);
 
         var summaryE = document.createElement("p");
         summaryE.textContent = summary;
-        summaryE.setAttribute("class","content is-small");
+        summaryE.setAttribute("class", "content");
         newsParent.appendChild(summaryE);
-
+        
         var newsurlE = document.createElement("a");
-        newsurlE.textContent = "Full Article";
+        newsurlE.textContent = "Read Full Article on " + source;
         newsurlE.setAttribute("href", newsurl);
         newsParent.appendChild(newsurlE);
         }
@@ -90,30 +63,3 @@ function getNews(userInput) {
       .catch(function () {
       });
 }
-
-
-
-getNews();
-
-//functions
-// const searchButton is already definied in ticketreader.js
-// const searchButton = document.getElementById('search-btn')
-// searchButton.addEventListener('click', buttonSubmit)
-//
-// function buttonSubmit() is already definied in ticketreader.js
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
-//     userInput = userInput.toUpperCase().trim()
-//     fetchStockPrice(userInput)
-// }
-// const searchButton = document.getElementById('search-btn')
-// searchButton.addEventListener('click', buttonSubmit)
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
-//     userInput = userInput.toUpperCase().trim()
-//     fetchStockPrice(userInput)
-// }
-
-//eventlisteners

@@ -11,21 +11,21 @@ searchInput.addEventListener("keypress", function (e) {
 searchButton.addEventListener('click', buttonSubmit)
 
 //
+// REMOVE THIS LATER?
+// function buttonSubmit() {
+//     let searchInput = document.getElementById('search-input')
+//     let userInput = searchInput.value
 
-function buttonSubmit() {
-    let searchInput = document.getElementById('search-input')
-    let userInput = searchInput.value
+//     userInput = userInput.toUpperCase().trim()
 
-    userInput = userInput.toUpperCase().trim()
+//     // else if (userInput != listofAllTickers)
+//     //alert error
+//     // else {}
+//     storeSymbolLocal(userInput); // Stores user input to localStorage
+//     //
+//     fetchStockPrice(userInput);
 
-    // else if (userInput != listofAllTickers)
-    //alert error
-    // else {}
-    storeSymbolLocal(userInput); // Stores user input to localStorage
-    //
-    fetchStockPrice(userInput);
-
-}
+// }
 
 //the first call is to get the stock price changes
 //the second call is to get the name of the company
