@@ -183,11 +183,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.append(tickerDiv)
     stockInfoItems.append(currentStockPriceDiv)
     stockInfoItems.append(percentChangeDiv)
-
     stockInfoItems.append(valueChangeDiv)
-
-    console.log(stockInfo)
-    console.log(tickerNameData)
 
     
  
@@ -280,43 +276,103 @@ function dailyInfo(ticker) {
         });
 }
 
+
+function createGraph(dailyPrice) {
+
 function createGraph() {
     
 
 
     let myChart = document.getElementById("myChart").getContext('2d');
-    let hour = dayjs().format('H')
-    console.log(hour)
+    // let hour = dayjs().format('H')
+
+    let yesterdaysDate = dayjs().subtract(1, 'day').format("YYYY-MM-DD")
+
+    //setting the hour to call the API per hour
+    let hour1 = yesterdaysDate + " 05:00:00"
+    let hour2 = yesterdaysDate + " 06:00:00"
+    let hour3 = yesterdaysDate + " 07:00:00"
+    let hour4 = yesterdaysDate + " 08:00:00"
+    let hour5 = yesterdaysDate + " 09:00:00"
+    let hour6 = yesterdaysDate + " 10:00:00"
+    let hour7 = yesterdaysDate + " 11:00:00"
+    let hour8 = yesterdaysDate + " 12:00:00"
+    let hour9 = yesterdaysDate + " 13:00:00"
+    let hour10 = yesterdaysDate + " 14:00:00"
+    let hour11 = yesterdaysDate + " 15:00:00"
+    let hour12 = yesterdaysDate + " 16:00:00"
+    let hour13 = yesterdaysDate + " 17:00:00"
+    let hour14 = yesterdaysDate + " 18:00:00"
+    let hour15 = yesterdaysDate + " 19:00:00"
+    let hour16 = yesterdaysDate + " 20:00:00"
+
+    //the actual format for API call to store the time
+    //after each variable, I round the number to two decimals by eliminating the 3rd and 4th decimal
+    let sixAM = dailyPrice["Time Series (60min)"][hour1]["4. close"]
+    sixAM = sixAM.substring(0, sixAM.length - 2);
+    let sevenAM = dailyPrice["Time Series (60min)"][hour2]["4. close"]
+    sevenAM = sevenAM.substring(0, sevenAM.length - 2);
+    let eightAM = dailyPrice["Time Series (60min)"][hour3]["4. close"]
+    eightAM = eightAM.substring(0, eightAM.length - 2);
+    let nineAM = dailyPrice["Time Series (60min)"][hour4]["4. close"]
+    nineAM = nineAM.substring(0, nineAM.length - 2);
+    let tenAM = dailyPrice["Time Series (60min)"][hour5]["4. close"]
+    tenAM = tenAM.substring(0, tenAM.length - 2);
+    let elevenAM = dailyPrice["Time Series (60min)"][hour6]["4. close"]
+    elevenAM = elevenAM.substring(0, elevenAM.length - 2);
+    let twelvePM = dailyPrice["Time Series (60min)"][hour7]["4. close"]
+    twelvePM = twelvePM.substring(0, twelvePM.length - 2);
+    let onePM = dailyPrice["Time Series (60min)"][hour8]["4. close"]
+    onePM = onePM.substring(0, onePM.length - 2);
+    let twoPM = dailyPrice["Time Series (60min)"][hour9]["4. close"]
+    twoPM = twoPM.substring(0, twoPM.length - 2);
+    let threePM = dailyPrice["Time Series (60min)"][hour10]["4. close"]
+    threePM = threePM.substring(0, threePM.length - 2);
+    let fourPM = dailyPrice["Time Series (60min)"][hour11]["4. close"]
+    fourPM = fourPM.substring(0, fourPM.length - 2);
+    let fivePM = dailyPrice["Time Series (60min)"][hour12]["4. close"]
+    fivePM = fivePM.substring(0, fivePM.length - 2);
+    let sixPM = dailyPrice["Time Series (60min)"][hour13]["4. close"]
+    sixPM = sixPM.substring(0, sixPM.length - 2);
+    let sevenPM = dailyPrice["Time Series (60min)"][hour14]["4. close"]
+    sevenPM = sevenPM.substring(0, sevenPM.length - 2);
+    let eightPM = dailyPrice["Time Series (60min)"][hour15]["4. close"]
+    eightPM = eightPM.substring(0, eightPM.length - 2);
+    let ninePM = dailyPrice["Time Series (60min)"][hour16]["4. close"]
+    ninePM = ninePM.substring(0, ninePM.length - 2);
+
     let stockPricingChart = new Chart(myChart, {
         type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
         data: {
-            labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm'],
+            labels: ['5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
             datasets: [
                 {
                     label: 'Price',
-                    data: [200, 300, 400, 500, 600, 700, 800, 50, 900],
+                    data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM, sixPM, sevenPM, eightPM, ninePM],
                     // backgroundColor: 'blue'
                     backgroundColor: [
                         'rgba(46, 204, 113, 0.5)'
                     ]
                 }
-            ],
-            options: {
-                title: {
-                    display: true,
-                    text: 'Todays Price Movement'
-                    // fontSize: 25;
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: "Yesterday's Price Movement"
+                // fontSize: 25;
 
-                },
-                legend: {
-                    position: 'right'
-                }
             },
-
+            legend: {
+                display: false,
+                position: 'bottom'
+            },
+            drawOnChartArea: false,
         }
-
-
     })
+
+
 
     document.getElementById("myChart").classList.remove("chart-hidden")
     document.getElementById("myChart").classList.add("chart-show")
@@ -338,6 +394,7 @@ function createGraph() {
       })   
 
 
+    //close function
 }
 
 
