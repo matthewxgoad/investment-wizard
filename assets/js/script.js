@@ -68,37 +68,37 @@ $("#search-inpuxt").autocomplete(
 // EVENT LISTENERS //
 document.onload = getStoredSymbols();
 document.getElementById('clearHistoryBtn').addEventListener("click", clearLocalStorage);
-
 $( function() {
-    var projects = [
-      {
-        value: "BA",
-        label: "Boeing Company",
-      },
-      {
-        value: "BAA",
-        label: "Banro Corporation USA",
-      },
-      {
-        value: "BAB",
-        label: "Invesco Taxable Municipal Bond ETF",
-      }
-    ];
+var getData = function (request, response) {
+    $.getJSON(
+        "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="+request.term+"&apikey=O2WNV1V3T02WJSY4",
+        function (data) {
+            var searchResultsArray = data.bestMatches.map((x)=>{
+                var symbol = x["1. symbol"];
+                var name = x["2. name"];
+                // return symbol+"   -   "+name;
+                return {value: symbol,label: name};
+            });
+            data = searchResultsArray;
+            response(data);
+            // console.log(data);
+        });
+    };
  
     $( "#search-input" ).autocomplete({
       minLength: 0,
-      source: projects,
+      source: getData,
       focus: function( event, ui ) {
         $( "#search-input" ).val( ui.item.label );
         return false;
       },
       select: function( event, ui ) {
-        $( "#search-input" ).val( ui.item.label );
-        $( "#search-input-id" ).val( ui.item.value );
+        $( "#search-input" ).val( ui.item.value );
+        $( "#search-input-id" ).val( ui.item.label );
         // $( "#project-description" ).html( ui.item.desc );
         // $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
  
-        return true;
+        return false;
       }
     })
     .autocomplete( "instance" )._renderItem = function( ul, item ) {
