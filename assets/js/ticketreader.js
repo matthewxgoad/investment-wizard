@@ -141,9 +141,15 @@ function populateBoxes(stockInfo, tickerNameData) {
 
     tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     currentStockPriceDiv.classList.add("tile", "is-child", "box", "has-text-centered");
-
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
+    
+    tickerDiv.setAttribute('id', 'tickerDiv');
+    currentStockPriceDiv.setAttribute('id', 'currentStockPriceDiv');
+    valueChangeDiv.setAttribute('id', 'valueChangeDiv');
+    percentChangeDiv.setAttribute('id', 'percentChangeDiv')
+    
+
 
 
     //if the first index of the string is negative, it this if statement changes all the classes from Green to Red, showing that its negative for the day 
@@ -177,12 +183,80 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.append(tickerDiv)
     stockInfoItems.append(currentStockPriceDiv)
     stockInfoItems.append(percentChangeDiv)
+
     stockInfoItems.append(valueChangeDiv)
 
     console.log(stockInfo)
     console.log(tickerNameData)
 
-    dailyInfo(ticker)
+    
+ 
+    let waypoint = new Waypoint({
+        element: document.querySelector('#tickerDiv'),
+        handler: function() {
+              anime({
+                  targets: '#tickerDiv',
+                  easing: 'easeOutExpo',
+                  translateX: [50, 0],
+                  opacity: [0, 1],
+                  delay: 100,
+              })
+              this.destroy();
+        },
+          context: document.querySelector('#stock-info-items'),
+          offset: '100%',
+      })   
+
+        
+    let waypoint2 = new Waypoint({
+        element: document.querySelector('#currentStockPriceDiv'),
+        handler: function() {
+              anime({
+                  targets: '#currentStockPriceDiv',
+                  easing: 'easeOutExpo',
+                  translateX: [50, 0],
+                  opacity: [0, 1],
+                  delay: 150,
+              })
+              this.destroy();
+        },
+          context: document.querySelector('#stock-info-items'),
+          offset: '100%',
+      })   
+
+      let waypoint3 = new Waypoint({
+        element: document.querySelector('#valueChangeDiv'),
+        handler: function() {
+              anime({
+                  targets: '#valueChangeDiv',
+                  easing: 'easeOutExpo',
+                  translateX: [50, 0],
+                  opacity: [0, 1],
+                  delay: 200,
+              })
+              this.destroy();
+        },
+          context: document.querySelector('#stock-info-items'),
+          offset: '100%',
+      })   
+
+      let waypoint4 = new Waypoint({
+        element: document.querySelector('#percentChangeDiv'),
+        handler: function() {
+              anime({
+                  targets: '#percentChangeDiv',
+                  easing: 'easeOutExpo',
+                  translateX: [50, 0],
+                  opacity: [0, 1],
+                  delay: 250,
+              })
+              this.destroy();
+        },
+          context: document.querySelector('#stock-info-items'),
+          offset: '100%',
+      })   
+
+      dailyInfo(ticker);
 }
 
 // The following code is all related to chart.js
@@ -208,6 +282,8 @@ function dailyInfo(ticker) {
 
 function createGraph() {
     
+
+
     let myChart = document.getElementById("myChart").getContext('2d');
     let hour = dayjs().format('H')
     console.log(hour)
@@ -241,6 +317,25 @@ function createGraph() {
 
 
     })
+
+    document.getElementById("myChart").classList.remove("chart-hidden")
+    document.getElementById("myChart").classList.add("chart-show")
+
+    let waypoint = new Waypoint({
+        element: document.querySelector('#myChart'),
+        handler: function() {
+              anime({
+                  targets: '#myChart',
+                  easing: 'easeOutExpo',
+                  translateY: [100, 0],
+                  opacity: [0, 1],
+                  delay: 400,
+              })
+              this.destroy();
+        },
+          context: document.querySelector('#chartContainer'),
+          offset: '100%',
+      })   
 
 
 }
