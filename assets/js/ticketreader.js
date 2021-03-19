@@ -1,40 +1,24 @@
 
-let callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=S5E23FUR0IXVEJ9R'
+// let callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=S5E23FUR0IXVEJ9R'
 
-const searchButton = document.getElementById('search-btn')
-const searchInput = document.getElementById('search-input')
+// const searchButton = document.getElementById('search-btn')
+// const searchInput = document.getElementById('search-input')
 
-searchInput.addEventListener("keypress", function (e) {
-    if (e.key === 'Enter')
-        buttonSubmit();
-});
-searchButton.addEventListener('click', buttonSubmit)
+// searchInput.addEventListener("keypress", function (e) {
+//     if (e.key === 'Enter')
+//         buttonSubmit();
+// });
 
-//
-// REMOVE THIS LATER?
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
+// searchButton.addEventListener('click', buttonSubmit)
 
-//     userInput = userInput.toUpperCase().trim()
 
-//     // else if (userInput != listofAllTickers)
-//     //alert error
-//     // else {}
-//     storeSymbolLocal(userInput); // Stores user input to localStorage
-//     //
-//     fetchStockPrice(userInput);
-
-// }
-
-//the first call is to get the stock price changes
-//the second call is to get the name of the company
-
+//the first fetch API call is to get the stock price changes
+//the second API call is to get the name of the company
 function fetchStockPrice(tickerName) {
 
     removeButtons();
     getStoredSymbols();
-    callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
+    let callURL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + tickerName + '&apikey=S5E23FUR0IXVEJ9R'
 
     fetch(callURL)
         //this is the original fetch
@@ -143,7 +127,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     currentStockPriceDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
-    
+
     //adding an ID for animation
     tickerDiv.setAttribute('id', 'tickerDiv');
     currentStockPriceDiv.setAttribute('id', 'currentStockPriceDiv');
@@ -185,73 +169,73 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.append(percentChangeDiv)
     stockInfoItems.append(valueChangeDiv)
 
- 
+
     let waypoint = new Waypoint({
         element: document.querySelector('#tickerDiv'),
-        handler: function() {
-              anime({
-                  targets: '#tickerDiv',
-                  easing: 'easeOutExpo',
-                  translateX: [50, 0],
-                  opacity: [0, 1],
-                  delay: 100,
-              })
-              this.destroy();
+        handler: function () {
+            anime({
+                targets: '#tickerDiv',
+                easing: 'easeOutExpo',
+                translateX: [50, 0],
+                opacity: [0, 1],
+                delay: 100,
+            })
+            this.destroy();
         },
-          context: document.querySelector('#stock-info-items'),
-          offset: '100%',
-      })   
+        context: document.querySelector('#stock-info-items'),
+        offset: '100%',
+    })
 
-        
+
     let waypoint2 = new Waypoint({
         element: document.querySelector('#currentStockPriceDiv'),
-        handler: function() {
-              anime({
-                  targets: '#currentStockPriceDiv',
-                  easing: 'easeOutExpo',
-                  translateX: [50, 0],
-                  opacity: [0, 1],
-                  delay: 150,
-              })
-              this.destroy();
+        handler: function () {
+            anime({
+                targets: '#currentStockPriceDiv',
+                easing: 'easeOutExpo',
+                translateX: [50, 0],
+                opacity: [0, 1],
+                delay: 150,
+            })
+            this.destroy();
         },
-          context: document.querySelector('#stock-info-items'),
-          offset: '100%',
-      })   
+        context: document.querySelector('#stock-info-items'),
+        offset: '100%',
+    })
 
-      let waypoint3 = new Waypoint({
+    let waypoint3 = new Waypoint({
         element: document.querySelector('#valueChangeDiv'),
-        handler: function() {
-              anime({
-                  targets: '#valueChangeDiv',
-                  easing: 'easeOutExpo',
-                  translateX: [50, 0],
-                  opacity: [0, 1],
-                  delay: 200,
-              })
-              this.destroy();
+        handler: function () {
+            anime({
+                targets: '#valueChangeDiv',
+                easing: 'easeOutExpo',
+                translateX: [50, 0],
+                opacity: [0, 1],
+                delay: 200,
+            })
+            this.destroy();
         },
-          context: document.querySelector('#stock-info-items'),
-          offset: '100%',
-      })   
+        context: document.querySelector('#stock-info-items'),
+        offset: '100%',
+    })
 
-      let waypoint4 = new Waypoint({
+    let waypoint4 = new Waypoint({
         element: document.querySelector('#percentChangeDiv'),
-        handler: function() {
-              anime({
-                  targets: '#percentChangeDiv',
-                  easing: 'easeOutExpo',
-                  translateX: [50, 0],
-                  opacity: [0, 1],
-                  delay: 250,
-              })
-              this.destroy();
+        handler: function () {
+            anime({
+                targets: '#percentChangeDiv',
+                easing: 'easeOutExpo',
+                translateX: [50, 0],
+                opacity: [0, 1],
+                delay: 250,
+            })
+            this.destroy();
         },
-          context: document.querySelector('#stock-info-items'),
-          offset: '100%',
-      })   
+        context: document.querySelector('#stock-info-items'),
+        offset: '100%',
+    })
 
-      dailyInfo(ticker);
+    dailyInfo(ticker);
 }
 
 
@@ -271,69 +255,143 @@ function dailyInfo(ticker) {
 }
 
 //this function creates the graph using chart.js then populates all the info from the API dynamically then reveals the finished chart with an animation from anime.js
-function createGraph() {
 
-    let myChart = document.getElementById("myChart").getContext('2d');
-    let hour = dayjs().format('H')
+function createGraph(dailyPrice) {
 
-    let stockPricingChart = new Chart(myChart, {
-        type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
-        data: {
-            labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm'],
-            datasets: [
-                {
-                    label: 'Price',
-                    data: [200, 300, 400, 500, 600, 700, 800, 50, 900],
-                    // backgroundColor: 'blue'
-                    backgroundColor: [
-                        'rgba(46, 204, 113, 0.5)'
-                    ]
-                }
-            ],
+    function createGraphh() {
+
+        let myChart = document.getElementById("myChart").getContext('2d');
+        let hour = dayjs().format('H')
+        // let hour = dayjs().format('H')
+
+        let yesterdaysDate = dayjs().subtract(1, 'day').format("YYYY-MM-DD")
+
+        //setting the hour to call the API per hour
+        let hour1 = yesterdaysDate + " 05:00:00"
+        let hour2 = yesterdaysDate + " 06:00:00"
+        let hour3 = yesterdaysDate + " 07:00:00"
+        let hour4 = yesterdaysDate + " 08:00:00"
+        let hour5 = yesterdaysDate + " 09:00:00"
+        let hour6 = yesterdaysDate + " 10:00:00"
+        let hour7 = yesterdaysDate + " 11:00:00"
+        let hour8 = yesterdaysDate + " 12:00:00"
+        let hour9 = yesterdaysDate + " 13:00:00"
+        let hour10 = yesterdaysDate + " 14:00:00"
+        let hour11 = yesterdaysDate + " 15:00:00"
+        let hour12 = yesterdaysDate + " 16:00:00"
+        let hour13 = yesterdaysDate + " 17:00:00"
+        let hour14 = yesterdaysDate + " 18:00:00"
+        let hour15 = yesterdaysDate + " 19:00:00"
+        let hour16 = yesterdaysDate + " 20:00:00"
+
+        //the actual format for API call to store the time
+        //after each variable, I round the number to two decimals by eliminating the 3rd and 4th decimal
+        let sixAM = dailyPrice["Time Series (60min)"][hour1]["4. close"]
+        sixAM = sixAM.substring(0, sixAM.length - 2);
+        let sevenAM = dailyPrice["Time Series (60min)"][hour2]["4. close"]
+        sevenAM = sevenAM.substring(0, sevenAM.length - 2);
+        let eightAM = dailyPrice["Time Series (60min)"][hour3]["4. close"]
+        eightAM = eightAM.substring(0, eightAM.length - 2);
+        let nineAM = dailyPrice["Time Series (60min)"][hour4]["4. close"]
+        nineAM = nineAM.substring(0, nineAM.length - 2);
+        let tenAM = dailyPrice["Time Series (60min)"][hour5]["4. close"]
+        tenAM = tenAM.substring(0, tenAM.length - 2);
+        let elevenAM = dailyPrice["Time Series (60min)"][hour6]["4. close"]
+        elevenAM = elevenAM.substring(0, elevenAM.length - 2);
+        let twelvePM = dailyPrice["Time Series (60min)"][hour7]["4. close"]
+        twelvePM = twelvePM.substring(0, twelvePM.length - 2);
+        let onePM = dailyPrice["Time Series (60min)"][hour8]["4. close"]
+        onePM = onePM.substring(0, onePM.length - 2);
+        let twoPM = dailyPrice["Time Series (60min)"][hour9]["4. close"]
+        twoPM = twoPM.substring(0, twoPM.length - 2);
+        let threePM = dailyPrice["Time Series (60min)"][hour10]["4. close"]
+        threePM = threePM.substring(0, threePM.length - 2);
+        let fourPM = dailyPrice["Time Series (60min)"][hour11]["4. close"]
+        fourPM = fourPM.substring(0, fourPM.length - 2);
+        let fivePM = dailyPrice["Time Series (60min)"][hour12]["4. close"]
+        fivePM = fivePM.substring(0, fivePM.length - 2);
+        let sixPM = dailyPrice["Time Series (60min)"][hour13]["4. close"]
+        sixPM = sixPM.substring(0, sixPM.length - 2);
+        let sevenPM = dailyPrice["Time Series (60min)"][hour14]["4. close"]
+        sevenPM = sevenPM.substring(0, sevenPM.length - 2);
+        let eightPM = dailyPrice["Time Series (60min)"][hour15]["4. close"]
+        eightPM = eightPM.substring(0, eightPM.length - 2);
+        let ninePM = dailyPrice["Time Series (60min)"][hour16]["4. close"]
+        ninePM = ninePM.substring(0, ninePM.length - 2);
+
+        let stockPricingChart = new Chart(myChart, {
+            type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
+            data: {
+                labels: ['5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+                datasets: [
+                    {
+                        label: 'Price',
+                        data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM, sixPM, sevenPM, eightPM, ninePM],
+                        // backgroundColor: 'blue'
+                        backgroundColor: [
+                            'rgba(46, 204, 113, 0.5)'
+                        ]
+                    }
+                ]
+            },
             options: {
+                responsive: true,
                 title: {
                     display: true,
-                    text: 'Todays Price Movement'
+                    text: "Yesterday's Price Movement"
                     // fontSize: 25;
 
                 },
                 legend: {
-                    position: 'right'
-                }
+                    display: false,
+                    position: 'bottom'
+                },
+                drawOnChartArea: false,
+            }
+        })
+
+
+
+        document.getElementById("myChart").classList.remove("chart-hidden")
+        document.getElementById("myChart").classList.add("chart-show")
+
+        let waypoint = new Waypoint({
+            element: document.querySelector('#myChart'),
+            handler: function () {
+                anime({
+                    targets: '#myChart',
+                    easing: 'easeOutExpo',
+                    translateY: [100, 0],
+                    opacity: [0, 1],
+                    delay: 400,
+                })
+                this.destroy();
             },
-
-        }
-
-
-    })
-
-    document.getElementById("myChart").classList.remove("chart-hidden")
-    document.getElementById("myChart").classList.add("chart-show")
-
-    let waypoint = new Waypoint({
-        element: document.querySelector('#myChart'),
-        handler: function() {
-              anime({
-                  targets: '#myChart',
-                  easing: 'easeOutExpo',
-                  translateY: [100, 0],
-                  opacity: [0, 1],
-                  delay: 400,
-              })
-              this.destroy();
-        },
-          context: document.querySelector('#chartContainer'),
-          offset: '100%',
-      })   
+            context: document.querySelector('#chartContainer'),
+            offset: '100%',
+        })
 
 
+        //close function
+    }
+
+    createGraphh()
 }
 
 
-// Add div elements with the following classes
-// tile is-child box has-text-centered
-// to div element with id #stock-info-items
+//
+// REMOVE THIS LATER?
+// function buttonSubmit() {
+//     let searchInput = document.getElementById('search-input')
+//     let userInput = searchInput.value
 
-// text input from search box is #search-input
-// search button is #search-btn
+//     userInput = userInput.toUpperCase().trim()
 
+//     // else if (userInput != listofAllTickers)
+//     //alert error
+//     // else {}
+//     storeSymbolLocal(userInput); // Stores user input to localStorage
+//     //
+//     fetchStockPrice(userInput);
+
+// }
