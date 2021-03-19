@@ -138,18 +138,17 @@ function populateBoxes(stockInfo, tickerNameData) {
     currentStockPriceTitle.innerHTML = ("Current Price");
     currentStockPriceAPI.innerHTML = ('&dollar;' + currentPrice);
 
-
+    //adding classes to each div styled by Bulma
     tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     currentStockPriceDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
     
+    //adding an ID for animation
     tickerDiv.setAttribute('id', 'tickerDiv');
     currentStockPriceDiv.setAttribute('id', 'currentStockPriceDiv');
     valueChangeDiv.setAttribute('id', 'valueChangeDiv');
     percentChangeDiv.setAttribute('id', 'percentChangeDiv')
-    
-
 
 
     //if the first index of the string is negative, it this if statement changes all the classes from Green to Red, showing that its negative for the day 
@@ -174,6 +173,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     currentStockPriceDiv.append(currentStockPriceAPI)
     currentStockPriceDiv.append(currentStockPriceTitle)
 
+    //adding styled P elements to each div
     percentChangeDiv.append(dollarP);
     percentChangeDiv.append(amountChangeP);
     valueChangeDiv.append(percentP);
@@ -183,13 +183,8 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.append(tickerDiv)
     stockInfoItems.append(currentStockPriceDiv)
     stockInfoItems.append(percentChangeDiv)
-
     stockInfoItems.append(valueChangeDiv)
 
-    console.log(stockInfo)
-    console.log(tickerNameData)
-
-    
  
     let waypoint = new Waypoint({
         element: document.querySelector('#tickerDiv'),
@@ -259,18 +254,13 @@ function populateBoxes(stockInfo, tickerNameData) {
       dailyInfo(ticker);
 }
 
-// The following code is all related to chart.js
 
+//this function calls intraday stock info then passes it to the below chart function to autopopulate the Data based on the user info
 function dailyInfo(ticker) {
-
-
 
     fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S5E23FUR0IXVEJ9R')
         .then(response => response.json())
         .then(dailyPrice => {
-
-
-            console.log(dailyPrice)
 
             createGraph(dailyPrice)
         }
@@ -280,13 +270,12 @@ function dailyInfo(ticker) {
         });
 }
 
+//this function creates the graph using chart.js then populates all the info from the API dynamically then reveals the finished chart with an animation from anime.js
 function createGraph() {
-    
-
 
     let myChart = document.getElementById("myChart").getContext('2d');
     let hour = dayjs().format('H')
-    console.log(hour)
+
     let stockPricingChart = new Chart(myChart, {
         type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
         data: {
