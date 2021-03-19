@@ -1,6 +1,6 @@
 
 // GLOBAL VARIABLES
-
+const searchButton = document.getElementById("search-btn");
 searchButton.addEventListener('click', buttonSubmit)
 
 function buttonSubmit() {
