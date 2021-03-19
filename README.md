@@ -3,7 +3,7 @@
 ![Placeholder for image of deployed application](assets/images/statler-waldorf-laughing.gif)
 <!-- PLACEHOLDER IMAGE; REPLACE BEFORE DEPLOY -->
 
-[link to deployed application](http://matthewxgoad.github.io/investment-wizard/)
+[link to deployed application](https://matthewxgoad.github.io/investment-wizard/)
 
 ## Description
 

@@ -58,6 +58,27 @@ function getNews(userInput) {
         newsurlE.textContent = "Read Full Article on " + source;
         newsurlE.setAttribute("href", newsurl);
         newsParent.appendChild(newsurlE);
+
+        let animationID = "#newsStory"+i
+        let delaytime = 200*i
+
+    let waypoint = new Waypoint({
+      element: document.querySelector(animationID),
+      handler: function() {
+            anime({
+                targets: animationID,
+                easing: 'easeOutExpo',
+                translateY: [100, 0],
+                opacity: [0, 1],
+                delay: delaytime,
+            })
+            this.destroy();
+      },
+        context: document.querySelector('#stock-news-items'),
+        offset: '100%',
+    })   
+
+
         }
       })
       .catch(function () {
