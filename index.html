@@ -55,8 +55,8 @@
                 <!-- PLACEHOLDER STOCK INFO TILES DRAW HERE-->
             </div>
             <!-- chart.js -->
-            <div class="container">
-              <canvas id="myChart"></canvas>
+            <div class="container" id="chartContainer">
+              <canvas id="myChart" class="chart-hidden"></canvas>
             </div>
 
             <!-- NEWS ITEMS, SPANNING RIGHT SIDE -->
@@ -66,14 +66,15 @@
         </div>
 
     </div>
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>	
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/ticketreader.js"></script>
     <script src="assets/js/newsreader.js"></script>
-
+    
 
 </body>
 </html>

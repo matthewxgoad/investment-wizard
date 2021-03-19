@@ -10,3 +10,14 @@
 .tile {
     margin: 20px;
 }
+
+.chart-hidden {
+    display: none; 
+    height: 300px; 
+    width: 600;"
+}
+
+.chart-show {
+    display: block; 
+    height: 300px; 
+    width: 600;"
