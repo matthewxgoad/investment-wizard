@@ -1,17 +1,4 @@
 
-// This stuff is from the tickerreader js
-// Comment out before testing
-// Remove before deploy
-// const searchButton = document.getElementById('search-btn')
-// searchButton.addEventListener('click', buttonSubmit)
-
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
-//     userInput = userInput.toUpperCase().trim()
-//     localStorage.setItem('ticker', userInput)
-//     fetchStockPrice(userInput)
-// }
 // GLOBAL VARIABLES //
 let buttonListEl = document.getElementById('buttonListEl');
 

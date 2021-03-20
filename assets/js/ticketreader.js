@@ -1,15 +1,9 @@
+const searchInput = document.getElementById('search-input')
 
-// let callURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=S5E23FUR0IXVEJ9R'
-
-// const searchButton = document.getElementById('search-btn')
-// const searchInput = document.getElementById('search-input')
-
-// searchInput.addEventListener("keypress", function (e) {
-//     if (e.key === 'Enter')
-//         buttonSubmit();
-// });
-
-// searchButton.addEventListener('click', buttonSubmit)
+searchInput.addEventListener("keypress", function (e) {
+    if (e.key === 'Enter')
+        buttonSubmit();
+});
 
 
 //the first fetch API call is to get the stock price changes
