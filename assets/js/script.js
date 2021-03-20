@@ -1,17 +1,4 @@
 
-// This stuff is from the tickerreader js
-// Comment out before testing
-// Remove before deploy
-// const searchButton = document.getElementById('search-btn')
-// searchButton.addEventListener('click', buttonSubmit)
-
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
-//     userInput = userInput.toUpperCase().trim()
-//     localStorage.setItem('ticker', userInput)
-//     fetchStockPrice(userInput)
-// }
 // GLOBAL VARIABLES //
 let buttonListEl = document.getElementById('buttonListEl');
 
@@ -20,7 +7,6 @@ let buttonListEl = document.getElementById('buttonListEl');
 
 // Stores user input to localStorage
 function storeSymbolLocal(symbol) {
-    console.log(symbol);
     localStorage.setItem(symbol, symbol);
 }
 
@@ -28,7 +14,6 @@ function storeSymbolLocal(symbol) {
 function getStoredSymbols() {
     for( i = 0; i < localStorage.length; i++ ) {
         let stockSymbolStored = localStorage.key(i);
-        console.log(stockSymbolStored);
         let stockSymbolBtn = document.createElement('button');
         stockSymbolBtn.setAttribute('class', 'button is-large is-fullwidth');
         stockSymbolBtn.textContent = stockSymbolStored;
@@ -54,17 +39,6 @@ function removeButtons() {
         buttonListEl.removeChild(buttonListEl.firstChild);
     }
 }
-var myStockInfo = ["AMC", "IBM", "GME"];
-
-$("#search-inpuxt").autocomplete(
-    {
-    source: myStockInfo
-    },
-    {
-    autofocus: true,
-    delay: 300,
-    minLength: 2,
-    });
 
 // EVENT LISTENERS //
 document.onload = getStoredSymbols();
@@ -77,17 +51,16 @@ var getData = function (request, response) {
             var searchResultsArray = data.bestMatches.map((x)=>{
                 var symbol = x["1. symbol"];
                 var name = x["2. name"];
-                // return symbol+"   -   "+name;
+
                 return {value: symbol,label: name};
             });
             data = searchResultsArray;
             response(data);
-            // console.log(data);
         });
     };
  
     $( "#search-input" ).autocomplete({
-      minLength: 0,
+      minLength: 2,
       source: getData,
       focus: function( event, ui ) {
         $( "#search-input" ).val( ui.item.label );
@@ -96,8 +69,6 @@ var getData = function (request, response) {
       select: function( event, ui ) {
         $( "#search-input" ).val( ui.item.value );
         $( "#search-input-id" ).val( ui.item.label );
-        // $( "#project-description" ).html( ui.item.desc );
-        // $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
  
         return false;
       }

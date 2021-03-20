@@ -19,7 +19,6 @@ function getNews(userInput) {
     fetch(url)
       .then(response => response.json())
       .then(function (data) {
-        console.log(data);
         for(i=0; i<4; i++) {
         var headline = data[i].headline;
         var date = dayjs.unix(data[i].datetime).format('MMMM M YYYY')
