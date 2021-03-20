@@ -36,7 +36,7 @@ function fetchStockPrice(tickerName) {
 
 function getCompanyName(stockInfo) {
     let ticker = stockInfo['01. symbol']
-    fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=S5E23FUR0IXVEJ9R')
+    fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=ZT0JKRPGS8C92ST0')
         .then(response => response.json())
         .then(tickerNameData => {
 
@@ -236,7 +236,7 @@ function populateBoxes(stockInfo, tickerNameData) {
 //this function calls intraday stock info then passes it to the below chart function to autopopulate the Data based on the user info
 function dailyInfo(ticker) {
 
-    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S5E23FUR0IXVEJ9R')
+    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S8HD5UAIYRL35ZNF')
         .then(response => response.json())
         .then(dailyPrice => {
 
@@ -371,21 +371,3 @@ function createGraph(dailyPrice) {
 
     createGraphh()
 }
-
-
-//
-// REMOVE THIS LATER?
-// function buttonSubmit() {
-//     let searchInput = document.getElementById('search-input')
-//     let userInput = searchInput.value
-
-//     userInput = userInput.toUpperCase().trim()
-
-//     // else if (userInput != listofAllTickers)
-//     //alert error
-//     // else {}
-//     storeSymbolLocal(userInput); // Stores user input to localStorage
-//     //
-//     fetchStockPrice(userInput);
-
-// }
