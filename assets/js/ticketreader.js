@@ -332,8 +332,7 @@ function createGraph(dailyPrice) {
                 responsive: true,
                 title: {
                     display: true,
-                    text: "Yesterday's Price Movement"
-                    // fontSize: 25;
+                    text: dailyPrice["Meta Data"]["2. Symbol"] + ": Yesterday's Price Movement"
 
                 },
                 legend: {
