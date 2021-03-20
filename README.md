@@ -1,6 +1,6 @@
 # Investment Wizard
 
-![Placeholder for image of deployed application](assets/images/statler-waldorf-laughing.gif)
+![Placeholder for image of deployed application](assets/images/investment-wizard-demo.gif)
 <!-- PLACEHOLDER IMAGE; REPLACE BEFORE DEPLOY -->
 
 [link to deployed application](https://matthewxgoad.github.io/investment-wizard/)
