@@ -41,6 +41,7 @@ function getStoredSymbols() {
 function processStockBtnClick( symbol ) {
     userInput = symbol;
     fetchStockPrice(symbol);
+    getNews(symbol);
 }
 // Clear local storage events
 function clearLocalStorage() {

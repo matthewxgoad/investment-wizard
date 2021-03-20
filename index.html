@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 </head>
 <body>
     <!-- HEADER -->
@@ -40,11 +41,10 @@
                 </div>
             </div>
             <button class="button is-small is-fullwidth is-danger is-light" id="clearHistoryBtn">CLEAR HISTORY</button>
-            <!-- BUTTONS DRAW HERE -->
             <div class="container" id="buttonListEl">
-              <!-- <button class="button is-size-4">GME</button>
-              <button class="button is-size-4">APL</button>
-              <button class="button is-size-4">DEF</button> -->
+
+                <!-- BUTTONS DRAW HERE -->
+
             </div>
             
         </div>
@@ -55,24 +55,28 @@
             <div class="tile is-parent" id="stock-info-items">
                 <!-- PLACEHOLDER STOCK INFO TILES DRAW HERE-->
             </div>
+            <!-- chart.js -->
+            <div class="container" id="chartContainer">
+              <canvas id="myChart" class="chart-hidden"></canvas>
+            </div>
+
             <!-- NEWS ITEMS, SPANNING RIGHT SIDE -->
             <div class="tile is-parent is-vertical" id="stock-news-items">
-                <!-- PLACEHOLDER NEWS ITEMS DRAW HERE -->
-                <!-- <div class="tile is-child box">
-                    <p class="title">News Item</p>
-                    <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-                </div> -->
+                <!-- NEWS ITEMS DRAW HERE -->
             </div>         
         </div>
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>	
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
     <script src="assets/js/ticketreader.js"></script>
     <script src="assets/js/newsreader.js"></script>
-    <script src="assets/js/script.js"></script>
-
+    
 
 </body>
 </html>
