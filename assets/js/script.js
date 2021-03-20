@@ -20,7 +20,6 @@ let buttonListEl = document.getElementById('buttonListEl');
 
 // Stores user input to localStorage
 function storeSymbolLocal(symbol) {
-    console.log(symbol);
     localStorage.setItem(symbol, symbol);
 }
 
@@ -28,7 +27,6 @@ function storeSymbolLocal(symbol) {
 function getStoredSymbols() {
     for( i = 0; i < localStorage.length; i++ ) {
         let stockSymbolStored = localStorage.key(i);
-        console.log(stockSymbolStored);
         let stockSymbolBtn = document.createElement('button');
         stockSymbolBtn.setAttribute('class', 'button is-large is-fullwidth');
         stockSymbolBtn.textContent = stockSymbolStored;
