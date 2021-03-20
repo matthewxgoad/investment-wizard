@@ -6,7 +6,7 @@
 
 ## Description
 
-This application allows the user to input a known stock symbol and get the stock name and basic recent information.
+Our one-page application will allow beginner users in the stock market to see a quick run down of the most important information for them to make an informed decision on whether they should invest their money in a certain stock.
 
 ## Credits
 
