@@ -1,7 +1,6 @@
 # Investment Wizard
 
-![Placeholder for image of deployed application](./assets/images/investment-wizard-demo.gif)
-<!-- PLACEHOLDER IMAGE; REPLACE BEFORE DEPLOY -->
+![Placeholder for image of deployed application](assets/images/investment-wizard-demo.gif)
 
 [link to deployed application](https://matthewxgoad.github.io/investment-wizard/)
 
