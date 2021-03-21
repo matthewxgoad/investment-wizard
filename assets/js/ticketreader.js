@@ -1,9 +1,13 @@
-const searchInput = document.getElementById('search-input')
 
-searchInput.addEventListener("keypress", function (e) {
-    if (e.key === 'Enter')
-        buttonSubmit();
-});
+// const searchButton = document.getElementById('search-btn')
+// const searchInput = document.getElementById('search-input')
+
+// searchInput.addEventListener("keypress", function (e) {
+//     if (e.key === 'Enter')
+//         buttonSubmit();
+// });
+
+// searchButton.addEventListener('click', buttonSubmit)
 
 
 //the first fetch API call is to get the stock price changes
@@ -33,10 +37,9 @@ function fetchStockPrice(tickerName) {
 
 
 //this function contains a second fetch within a function which is nested underneath the primary fetch
-
 function getCompanyName(stockInfo) {
     let ticker = stockInfo['01. symbol']
-    fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=ZT0JKRPGS8C92ST0')
+    fetch('https://www.alphavantage.co/query?function=OVERVIEW&symbol=' + ticker + '&apikey=S5E23FUR0IXVEJ9R')
         .then(response => response.json())
         .then(tickerNameData => {
 
@@ -55,43 +58,49 @@ function getCompanyName(stockInfo) {
 
 function populateBoxes(stockInfo, tickerNameData) {
 
+    //creating variables for the elements and DIVS we needed to create
+    
+    const rightSideDiv = document.getElementById('right-side')
     const stockInfoItems = document.getElementById('stock-info-items')
-    const tickerDiv = document.createElement("div")
-    const percentChangeDiv = document.createElement("div")
-    const valueChangeDiv = document.createElement("div")
-    const currentStockPriceDiv = document.createElement("div")
+    const titleDiv = document.createElement("div")
+    const div1 = document.createElement("div")
+    const div2 = document.createElement("div")
+    const div3 = document.createElement("div")
+    const div4 = document.createElement("div")
 
-    const tickerNameP = document.createElement("p")
-    const companyNameP = document.createElement("p")
-    const dollarP = document.createElement("p")
-    const amountChangeP = document.createElement("p")
-    const percentP = document.createElement("p")
-    const percentChangeP = document.createElement("p")
-    const currentStockPriceTitle = document.createElement("p")
-    const currentStockPriceAPI = document.createElement("p")
+    //creating variables for the paragraph elements that store the information
+    const titleDivText = document.createElement("p")
+    const div1p1 = document.createElement("p")
+    const div1p2 = document.createElement("p")
+    const div2p1 = document.createElement("p")
+    const div2p2 = document.createElement("p")
+    const div3p1 = document.createElement("p")
+    const div3p2 = document.createElement("p")
+    const div4p1 = document.createElement("p")
+    const div4p2 = document.createElement("p")
 
-    tickerNameP.classList.add("title");
-    companyNameP.classList.add("subtitle");
-    dollarP.classList.add("title");
-    amountChangeP.classList.add("subtitle");
-    percentP.classList.add("title");
-    percentChangeP.classList.add("subtitle");
-
-    currentStockPriceTitle.classList.add("subtitle");
-    currentStockPriceAPI.classList.add("title");
-
-    tickerNameP.classList.add("title");
-    companyNameP.classList.add("subtitle");
-    dollarP.classList.add("title");
-    amountChangeP.classList.add("subtitle");
-    percentP.classList.add("title");
-    percentChangeP.classList.add("subtitle");
+    //added classes to the paragraph elements
+    titleDivText.classList.add("title");
+    div1p1.classList.add("title");
+    div1p2.classList.add("subtitle");
+    div2p1.classList.add("title");
+    div2p2.classList.add("subtitle");
+    div3p1.classList.add("title");
+    div3p2.classList.add("subtitle");
+    div4p1.classList.add("subtitle");
+    div4p2.classList.add("title");
+    div1p1.classList.add("title");
+    div1p2.classList.add("subtitle");
+    div2p1.classList.add("title");
+    div2p2.classList.add("subtitle");
+    div3p1.classList.add("title");
+    div3p2.classList.add("subtitle");
 
     //All the data from the API is styled green UNLESS its negative for the day
-    tickerNameP.classList.add("greenText");
-    percentP.classList.add("greenText");
-    dollarP.classList.add("greenText");
-    currentStockPriceAPI.classList.add("greenText");
+    div1p1.classList.add("greenText");
+    div3p1.classList.add("greenText");
+    div2p1.classList.add("greenText");
+    div4p2.classList.add("greenText");
 
     //get all the info necessary from the API
     let ticker = stockInfo["01. symbol"]
@@ -99,6 +108,10 @@ function populateBoxes(stockInfo, tickerNameData) {
     let percentChange = stockInfo["10. change percent"]
     let companyName = tickerNameData["Name"]
     let currentPrice = stockInfo["05. price"]
+    let peRatio = stockInfo["PERatio"]
+    let fiftyWeekHigh = stockInfo["52WeekHigh"]
+    let fiftyWeekLow = stockInfo["52WeekLow"]
+    let analystTargetPrice = stockInfo["AnalystTargetPrice"]
 
     //THIRD attempt ot round numbers
     //Since the JSON API returns an Array, I removed the final two elements from the string so that it appears to round to the second decimal and cleans up the page significantly
@@ -107,38 +120,44 @@ function populateBoxes(stockInfo, tickerNameData) {
     currentPrice = currentPrice.substring(0, currentPrice.length - 2);
 
     //add all the text to every element
-    tickerNameP.innerHTML = (ticker);
-    companyNameP.innerHTML = (companyName);
-    dollarP.innerHTML = ('&dollar;' + dollarChange)
-    amountChangeP.innerHTML = ("Dollar Change")
-    percentP.innerHTML = (percentChange + '&percnt;')
-    percentChangeP.innerHTML = ("Percent Change");
-    currentStockPriceTitle.innerHTML = ("Current Price");
-    currentStockPriceAPI.innerHTML = ('&dollar;' + currentPrice);
+    div1p1.innerHTML = (ticker);
+    div1p2.innerHTML = (companyName);
+    div2p1.innerHTML = ('&dollar;' + dollarChange)
+    div2p2.innerHTML = ("Dollar Change")
+    div3p1.innerHTML = (percentChange + '&percnt;')
+    div3p2.innerHTML = ("Percent Change");
+    div4p1.innerHTML = ("Current Price");
+    div4p2.innerHTML = ('&dollar;' + currentPrice);
+    titleDivText.innerHTML = (ticker+" • " + companyName+" • "+currentPrice);
 
     //adding classes to each div styled by Bulma
-    tickerDiv.classList.add("tile", "is-child", "box", "has-text-centered");
-    currentStockPriceDiv.classList.add("tile", "is-child", "box", "has-text-centered");
-    percentChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
-    valueChangeDiv.classList.add("tile", "is-child", "box", "has-text-centered");
+    div1.classList.add("tile", "is-child", "box", "has-text-centered");
+    div2.classList.add("tile", "is-child", "box", "has-text-centered");
+    div3.classList.add("tile", "is-child", "box", "has-text-centered");
+    div4.classList.add("tile", "is-child", "box", "has-text-centered");
+    titleDiv.classList.add("tile","is-vertical", "is-child", "box", "has-text-centered")
+
+
 
     //adding an ID for animation
-    tickerDiv.setAttribute('id', 'tickerDiv');
-    currentStockPriceDiv.setAttribute('id', 'currentStockPriceDiv');
-    valueChangeDiv.setAttribute('id', 'valueChangeDiv');
-    percentChangeDiv.setAttribute('id', 'percentChangeDiv')
+    div1.setAttribute('id', 'tickerDiv');
+    div2.setAttribute('id', 'currentStockPriceDiv');
+    div3.setAttribute('id', 'valueChangeDiv');
+    div4.setAttribute('id', 'percentChangeDiv')
+    titleDiv.setAttribute('id', 'title-div')
+
 
 
     //if the first index of the string is negative, it this if statement changes all the classes from Green to Red, showing that its negative for the day 
     if (dollarChange.charAt(0) == "-") {
-        tickerNameP.classList.remove('greenText')
-        tickerNameP.classList.add('redText')
-        dollarP.classList.remove('greenText')
-        dollarP.classList.add('redText')
-        percentP.classList.remove('greenText')
-        percentP.classList.add('redText')
-        currentStockPriceAPI.classList.remove('greenText')
-        currentStockPriceAPI.classList.add('redText')
+        div1p1.classList.remove('greenText')
+        div1p1.classList.add('redText')
+        div2p1.classList.remove('greenText')
+        div2p1.classList.add('redText')
+        div3p1.classList.remove('greenText')
+        div3p1.classList.add('redText')
+        div4p2.classList.remove('greenText')
+        div4p2.classList.add('redText')
 
     }
 
@@ -146,23 +165,41 @@ function populateBoxes(stockInfo, tickerNameData) {
     stockInfoItems.innerHTML = "";
 
     //this builds the P elements to their respective divs
-    tickerDiv.append(tickerNameP);
-    tickerDiv.append(companyNameP);
-    currentStockPriceDiv.append(currentStockPriceAPI)
-    currentStockPriceDiv.append(currentStockPriceTitle)
+    div1.append(div1p1);
+    div1.append(div1p2);
+    div2.append(div4p2)
+    div2.append(div4p1)
+    div3.append(div3p1);
+    div3.append(div3p2);
+    div4.append(div2p1);
+    div4.append(div2p2);
+    titleDiv.append(titleDivText)
 
-    //adding styled P elements to each div
-    percentChangeDiv.append(dollarP);
-    percentChangeDiv.append(amountChangeP);
-    valueChangeDiv.append(percentP);
-    valueChangeDiv.append(percentChangeP);
-
+ 
     //this build the divs in the parent element
-    stockInfoItems.append(tickerDiv)
-    stockInfoItems.append(currentStockPriceDiv)
-    stockInfoItems.append(percentChangeDiv)
-    stockInfoItems.append(valueChangeDiv)
+    rightSideDiv.append(titleDiv)
+    stockInfoItems.append(div1)
+    stockInfoItems.append(div2)
+    stockInfoItems.append(div3)
+    stockInfoItems.append(div4)
 
+
+
+    // let waypoint0 = new Waypoint({
+    //     element: document.querySelector('#title-div'),
+    //     handler: function () {
+    //         anime({
+    //             targets: '#title-div',
+    //             easing: 'easeOutExpo',
+    //             translateY: [100, 0],
+    //             opacity: [0, 1],
+    //             delay: 100,
+    //         })
+    //         this.destroy();
+    //     },
+    //     context: document.querySelector('#stock-info-items'),
+    //     offset: '100%',
+    // })
 
     let waypoint = new Waypoint({
         element: document.querySelector('#tickerDiv'),
@@ -236,7 +273,7 @@ function populateBoxes(stockInfo, tickerNameData) {
 //this function calls intraday stock info then passes it to the below chart function to autopopulate the Data based on the user info
 function dailyInfo(ticker) {
 
-    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S8HD5UAIYRL35ZNF')
+    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + ticker + '&interval=60min&apikey=S5E23FUR0IXVEJ9R')
         .then(response => response.json())
         .then(dailyPrice => {
 
@@ -249,7 +286,6 @@ function dailyInfo(ticker) {
 }
 
 //this function creates the graph using chart.js then populates all the info from the API dynamically then reveals the finished chart with an animation from anime.js
-
 function createGraph(dailyPrice) {
 
     function createGraphh() {
@@ -332,7 +368,8 @@ function createGraph(dailyPrice) {
                 responsive: true,
                 title: {
                     display: true,
-                    text: dailyPrice["Meta Data"]["2. Symbol"] + ": Yesterday's Price Movement"
+                    text: "Yesterday's Price Movement"
+                    // fontSize: 25;
 
                 },
                 legend: {
@@ -370,3 +407,21 @@ function createGraph(dailyPrice) {
 
     createGraphh()
 }
+
+
+//
+// REMOVE THIS LATER?
+// function buttonSubmit() {
+//     let searchInput = document.getElementById('search-input')
+//     let userInput = searchInput.value
+
+//     userInput = userInput.toUpperCase().trim()
+
+//     // else if (userInput != listofAllTickers)
+//     //alert error
+//     // else {}
+//     storeSymbolLocal(userInput); // Stores user input to localStorage
+//     //
+//     fetchStockPrice(userInput);
+
+// }
