@@ -258,12 +258,14 @@ function createGraph(dailyPrice) {
         let hour = dayjs().format('H')
         // let hour = dayjs().format('H')
 
-        let yesterdaysDate = dayjs().subtract(1, 'day').format("YYYY-MM-DD")
+        let yesterdaysDate = dayjs().subtract(4, 'day').format("YYYY-MM-DD")
+        console.log(yesterdaysDate);
+        console.log(dailyPrice);
 
         //setting the hour to call the API per hour
-        let hour1 = yesterdaysDate + " 05:00:00"
-        let hour2 = yesterdaysDate + " 06:00:00"
-        let hour3 = yesterdaysDate + " 07:00:00"
+        // let hour1 = yesterdaysDate + " 05:00:00"
+        // let hour2 = yesterdaysDate + " 06:00:00"
+        // let hour3 = yesterdaysDate + " 07:00:00"
         let hour4 = yesterdaysDate + " 08:00:00"
         let hour5 = yesterdaysDate + " 09:00:00"
         let hour6 = yesterdaysDate + " 10:00:00"
@@ -274,18 +276,18 @@ function createGraph(dailyPrice) {
         let hour11 = yesterdaysDate + " 15:00:00"
         let hour12 = yesterdaysDate + " 16:00:00"
         let hour13 = yesterdaysDate + " 17:00:00"
-        let hour14 = yesterdaysDate + " 18:00:00"
-        let hour15 = yesterdaysDate + " 19:00:00"
-        let hour16 = yesterdaysDate + " 20:00:00"
+        // let hour14 = yesterdaysDate + " 18:00:00"
+        // let hour15 = yesterdaysDate + " 19:00:00"
+        // let hour16 = yesterdaysDate + " 20:00:00"
 
         //the actual format for API call to store the time
         //after each variable, I round the number to two decimals by eliminating the 3rd and 4th decimal
-        let sixAM = dailyPrice["Time Series (60min)"][hour1]["4. close"]
-        sixAM = sixAM.substring(0, sixAM.length - 2);
-        let sevenAM = dailyPrice["Time Series (60min)"][hour2]["4. close"]
-        sevenAM = sevenAM.substring(0, sevenAM.length - 2);
-        let eightAM = dailyPrice["Time Series (60min)"][hour3]["4. close"]
-        eightAM = eightAM.substring(0, eightAM.length - 2);
+        // let sixAM = dailyPrice["Time Series (60min)"][hour1]["4. close"]
+        // sixAM = sixAM.substring(0, sixAM.length - 2);
+        // let sevenAM = dailyPrice["Time Series (60min)"][hour2]["4. close"]
+        // sevenAM = sevenAM.substring(0, sevenAM.length - 2);
+        // let eightAM = dailyPrice["Time Series (60min)"][hour3]["4. close"]
+        // eightAM = eightAM.substring(0, eightAM.length - 2);
         let nineAM = dailyPrice["Time Series (60min)"][hour4]["4. close"]
         nineAM = nineAM.substring(0, nineAM.length - 2);
         let tenAM = dailyPrice["Time Series (60min)"][hour5]["4. close"]
@@ -304,23 +306,25 @@ function createGraph(dailyPrice) {
         fourPM = fourPM.substring(0, fourPM.length - 2);
         let fivePM = dailyPrice["Time Series (60min)"][hour12]["4. close"]
         fivePM = fivePM.substring(0, fivePM.length - 2);
-        let sixPM = dailyPrice["Time Series (60min)"][hour13]["4. close"]
-        sixPM = sixPM.substring(0, sixPM.length - 2);
-        let sevenPM = dailyPrice["Time Series (60min)"][hour14]["4. close"]
-        sevenPM = sevenPM.substring(0, sevenPM.length - 2);
-        let eightPM = dailyPrice["Time Series (60min)"][hour15]["4. close"]
-        eightPM = eightPM.substring(0, eightPM.length - 2);
-        let ninePM = dailyPrice["Time Series (60min)"][hour16]["4. close"]
-        ninePM = ninePM.substring(0, ninePM.length - 2);
+        // let sixPM = dailyPrice["Time Series (60min)"][hour13]["4. close"]
+        // sixPM = sixPM.substring(0, sixPM.length - 2);
+        // let sevenPM = dailyPrice["Time Series (60min)"][hour14]["4. close"]
+        // sevenPM = sevenPM.substring(0, sevenPM.length - 2);
+        // let eightPM = dailyPrice["Time Series (60min)"][hour15]["4. close"]
+        // eightPM = eightPM.substring(0, eightPM.length - 2);
+        // let ninePM = dailyPrice["Time Series (60min)"][hour16]["4. close"]
+        // ninePM = ninePM.substring(0, ninePM.length - 2);
 
         let stockPricingChart = new Chart(myChart, {
             type: 'line', //bar, horizontalbar, pie, line, doughnut, radar, polarArea
             data: {
-                labels: ['5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
+                labels: ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'],
                 datasets: [
                     {
                         label: 'Price',
-                        data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM, sixPM, sevenPM, eightPM, ninePM],
+                        data: [nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM],
+                        //old copy
+                        // data: [sixAM, sevenAM, eightAM, nineAM, tenAM, elevenAM, onePM, twoPM, threePM, fourPM, fivePM, sixPM, sevenPM, eightPM, ninePM],
                         // backgroundColor: 'blue'
                         backgroundColor: [
                             'rgba(46, 204, 113, 0.5)'
