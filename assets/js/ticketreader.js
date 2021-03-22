@@ -61,6 +61,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     //creating variables for the elements and DIVS we needed to create
     
     const rightSideDiv = document.getElementById('right-side')
+    const stockTitleBar = document.getElementById('stock-title-bar')
     const stockInfoItems = document.getElementById('stock-info-items')
     const titleDiv = document.createElement("div")
     const div1 = document.createElement("div")
@@ -135,7 +136,8 @@ function populateBoxes(stockInfo, tickerNameData) {
     div2.classList.add("tile", "is-child", "box", "has-text-centered");
     div3.classList.add("tile", "is-child", "box", "has-text-centered");
     div4.classList.add("tile", "is-child", "box", "has-text-centered");
-    titleDiv.classList.add("tile","is-vertical", "is-child", "box", "has-text-centered")
+    titleDiv.classList.add("tile","is-vertical", "is-child", "has-text-centered")
+    stockTitleBar.classList.add("tile","is-vertical", "is-child", "has-text-centered","box")
 
 
 
@@ -162,6 +164,7 @@ function populateBoxes(stockInfo, tickerNameData) {
     }
 
     //this removes the current cards (if any) from the parent dive
+    stockTitleBar.innerHTML = "";
     stockInfoItems.innerHTML = "";
 
     //this builds the P elements to their respective divs
@@ -177,7 +180,8 @@ function populateBoxes(stockInfo, tickerNameData) {
 
  
     //this build the divs in the parent element
-    rightSideDiv.append(titleDiv)
+    // rightSideDiv.append(titleDiv)
+    stockTitleBar.append(titleDivText)
     stockInfoItems.append(div1)
     stockInfoItems.append(div2)
     stockInfoItems.append(div3)
@@ -185,21 +189,21 @@ function populateBoxes(stockInfo, tickerNameData) {
 
 
 
-    // let waypoint0 = new Waypoint({
-    //     element: document.querySelector('#title-div'),
-    //     handler: function () {
-    //         anime({
-    //             targets: '#title-div',
-    //             easing: 'easeOutExpo',
-    //             translateY: [100, 0],
-    //             opacity: [0, 1],
-    //             delay: 100,
-    //         })
-    //         this.destroy();
-    //     },
-    //     context: document.querySelector('#stock-info-items'),
-    //     offset: '100%',
-    // })
+    let waypoint0 = new Waypoint({
+        element: document.querySelector('#stock-title-bar'),
+        handler: function () {
+            anime({
+                targets: '#stock-title-bar',
+                easing: 'easeOutExpo',
+                translateY: [50, 0],
+                opacity: [0, 1],
+                delay: 0,
+            })
+            this.destroy();
+        },
+        context: document.querySelector('#right-side'),
+        offset: '100%',
+    })
 
     let waypoint = new Waypoint({
         element: document.querySelector('#tickerDiv'),
